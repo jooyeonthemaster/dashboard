@@ -1,0 +1,70 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0a0a0f;
+  --bg-elevated: #14141c;
+  --ink: #f4f4f7;
+  --ink-muted: #b6b6c8;
+}
+
+html,
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: "Pretendard Variable", Pretendard, var(--font-noto-kr),
+    -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-display: swap;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "ss01", "ss02";
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@layer base {
+  button:focus-visible,
+  a:focus-visible,
+  textarea:focus-visible,
+  input:focus-visible,
+  [role="button"]:focus-visible {
+    outline: 2px solid #f4f4f7;
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+}
+
+@keyframes noteIn {
+  from {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

@@ -1,0 +1,11 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": true,
+    "notes": {
+      "$noteId": {
+        ".validate": "newData.hasChildren(['authorSlug', 'body', 'createdAt', 'target'])"
+      }
+    }
+  }
+}
