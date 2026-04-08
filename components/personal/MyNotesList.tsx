@@ -5,6 +5,7 @@ import type { Note, NoteTarget } from "@/lib/types";
 import { TEAMS } from "@/lib/types";
 import { togglePin, toggleDone, deleteNote } from "@/lib/notes";
 import { readableTextOn } from "@/lib/color";
+import { getMemberColor } from "@/lib/members";
 
 type Props = {
   myNotes: Note[];
@@ -35,6 +36,7 @@ function formatTime(ts: number): string {
 
 function NoteCard({ note, owned }: { note: Note; owned: boolean }) {
   const accent = targetAccent(note.target);
+  const authorColor = getMemberColor(note.authorSlug);
   const [confirming, setConfirming] = useState(false);
 
   async function onDelete(): Promise<void> {
@@ -62,8 +64,8 @@ function NoteCard({ note, owned }: { note: Note; owned: boolean }) {
       }`}
     >
       <div
-        className="absolute left-0 top-0 h-full w-[3px]"
-        style={{ backgroundColor: note.color || accent }}
+        className="absolute left-0 top-0 h-full w-[4px]"
+        style={{ backgroundColor: authorColor }}
       />
 
       <div className="flex flex-wrap items-center gap-2 text-[10px] font-bold uppercase tracking-[0.22em]">
@@ -73,8 +75,15 @@ function NoteCard({ note, owned }: { note: Note; owned: boolean }) {
         >
           {targetLabel(note.target)}
         </span>
-        {note.recipientName && (
-          <span className="rounded-full border border-sky-400/40 bg-sky-400/10 px-2.5 py-1 text-sky-200">
+        {note.recipientName && note.recipientSlug && (
+          <span
+            className="rounded-full border px-2.5 py-1"
+            style={{
+              borderColor: `${getMemberColor(note.recipientSlug)}66`,
+              backgroundColor: `${getMemberColor(note.recipientSlug)}1a`,
+              color: getMemberColor(note.recipientSlug),
+            }}
+          >
             @{note.recipientName}
           </span>
         )}
@@ -84,7 +93,13 @@ function NoteCard({ note, owned }: { note: Note; owned: boolean }) {
           </span>
         )}
         {!owned && (
-          <span className="rounded-full border border-white/10 px-2.5 py-1 text-ink-muted">
+          <span
+            className="rounded-full border px-2.5 py-1"
+            style={{
+              borderColor: `${authorColor}66`,
+              color: authorColor,
+            }}
+          >
             {note.authorName}
           </span>
         )}

@@ -25,15 +25,27 @@ export default function RecipientPicker({
   useClickOutside(rootRef, close, open);
 
   const label = value ? `@${value.name}` : "지정 안함";
+  const valueColor = value
+    ? members.find((m) => m.slug === value.slug)?.color
+    : undefined;
 
   return (
     <div ref={rootRef} className="relative inline-block">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
+        style={
+          valueColor
+            ? {
+                borderColor: `${valueColor}80`,
+                backgroundColor: `${valueColor}1a`,
+                color: valueColor,
+              }
+            : undefined
+        }
         className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition ${
           value
-            ? "border-sky-400/50 bg-sky-400/10 text-sky-200 hover:bg-sky-400/15"
+            ? "hover:brightness-110"
             : "border-white/10 bg-white/[0.02] text-ink-muted hover:border-white/20 hover:text-ink"
         }`}
       >
@@ -68,11 +80,20 @@ export default function RecipientPicker({
                       onChange({ slug: m.slug, name: m.name });
                       setOpen(false);
                     }}
-                    className={`flex w-full items-center justify-between px-4 py-3 text-left text-sm transition hover:bg-white/[0.05] ${
-                      active ? "text-ink" : "text-ink-muted"
-                    }`}
+                    className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm transition hover:bg-white/[0.05]"
                   >
-                    <span className="font-semibold">{m.name}</span>
+                    <span className="flex items-center gap-2">
+                      <span
+                        className="h-2.5 w-2.5 rounded-full"
+                        style={{ backgroundColor: m.color }}
+                      />
+                      <span
+                        className="font-semibold"
+                        style={{ color: active ? m.color : undefined }}
+                      >
+                        {m.name}
+                      </span>
+                    </span>
                     <span className="font-mono text-xs uppercase tracking-widest text-ink-muted">
                       {m.role}
                     </span>

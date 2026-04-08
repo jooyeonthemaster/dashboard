@@ -49,11 +49,14 @@ export default function PersonalWorkspace({ member, allMembers }: Props) {
             </div>
             <h1 className="mt-4 font-display text-4xl font-black leading-tight tracking-tight text-ink lg:text-5xl">
               안녕하세요,{" "}
-              <span className="text-ink">{member.name}</span>
+              <span style={{ color: member.color }}>{member.name}</span>
               <span className="text-ink-muted">님</span>
             </h1>
             <div className="mt-4 flex flex-wrap items-center gap-3">
-              <span className="inline-flex items-center rounded-full border border-white/10 bg-transparent px-3 py-1 text-xs font-semibold tracking-wide text-ink-muted">
+              <span
+                className="inline-flex items-center rounded-full border bg-transparent px-3 py-1 text-xs font-semibold tracking-wide"
+                style={{ borderColor: `${member.color}66`, color: member.color }}
+              >
                 {member.role}
               </span>
             </div>

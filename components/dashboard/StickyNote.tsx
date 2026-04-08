@@ -5,6 +5,7 @@ import type { Note } from "@/lib/types";
 import { togglePin, toggleDone } from "@/lib/notes";
 import { formatRelativeKo } from "@/lib/time";
 import { hexToRgba } from "@/lib/color";
+import { getMemberColor } from "@/lib/members";
 
 type Props = {
   note: Note;
@@ -53,13 +54,19 @@ export function StickyNote({ note, accent, isNew, now }: Props) {
       <header className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
           <div className="flex flex-nowrap items-baseline gap-x-2">
-            <span className="truncate max-w-[60%] text-2xl font-black tracking-tight text-ink">
+            <span
+              className="truncate max-w-[60%] text-2xl font-black tracking-tight"
+              style={{ color: getMemberColor(note.authorSlug) }}
+            >
               {note.authorName}
             </span>
-            {note.recipientName && (
+            {note.recipientName && note.recipientSlug && (
               <span className="flex items-baseline gap-1 text-xl font-medium text-ink-muted">
                 <span className="text-ink-faint">→</span>
-                <span className="truncate max-w-[60%] text-ink">
+                <span
+                  className="truncate max-w-[60%]"
+                  style={{ color: getMemberColor(note.recipientSlug) }}
+                >
                   {note.recipientName}
                 </span>
               </span>
